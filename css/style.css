@@ -33,6 +33,19 @@ html, body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+/* Prevent zoom on input focus on iOS */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="date"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
 
 /* Background Animation */
@@ -58,6 +71,18 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+}
+
+/* Mobile-first improvements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, select, textarea, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* Header */
@@ -433,6 +458,7 @@ button {
   cursor: pointer;
   transition: var(--transition);
   flex-shrink: 0;
+  align-self: center;
 }
 
 .todo-checkbox.checked {
@@ -657,20 +683,127 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 896px) {
+  .filter-section .filter-row {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .filter-group, .search-group {
+    flex: 1;
+    max-width: 100%;
+  }
+  
+  /* Mulai mengecilkan checkbox di tablet */
+  .todo-checkbox {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+  }
+  
+  .todo-checkbox.checked::after {
+    font-size: 10px;
+  }
+  
+  .todo-item {
+    align-items: center;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 16px;
     gap: 16px;
   }
   
+  /* Larger touch targets */
+  button,
+  .action-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Smaller checkbox for mobile */
+  .todo-checkbox {
+    width: 18px;
+    height: 18px;
+    min-height: 18px;
+    min-width: 18px;
+  }
+  
+  .todo-checkbox.checked::after {
+    font-size: 10px;
+  }
+  
+  /* Better spacing for touch */
+  .todo-item {
+    margin-bottom: 8px;
+  }
+  
+  /* Improved readability */
+  .task-title {
+    line-height: 1.4;
+  }
+  
+  /* Better form spacing */
+  .form-row {
+    margin-bottom: 16px;
+  }
+  
+  /* Sticky header for mobile */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    padding: 16px 0;
+    margin-bottom: 0;
+  }
+  
   .stats {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    padding: 16px;
   }
   
   .filter-row {
     flex-direction: column;
     gap: 16px;
+  }
+  
+  .filter-section .filter-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  
+  .filter-group, .search-group {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .filter-group {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  
+  .search-group {
+    flex: 0 0 55%;
+    max-width: 55%;
   }
   
   .actions {
@@ -682,31 +815,265 @@ footer {
     gap: 12px;
   }
   
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+  
   h1 {
     font-size: 2rem;
   }
   
+  .subtitle {
+    font-size: 1rem;
+  }
+  
   .todo-item {
     padding: 12px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .todo-item .todo-checkbox {
+    align-self: center;
+    flex-shrink: 0;
+  }
+  
+  .todo-content {
+    flex: 1;
+    min-width: 0;
   }
   
   .task-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .todo-actions {
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .modal-actions {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    gap: 8px;
+  }
+  
+  .modal-actions button {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 12px;
+    gap: 12px;
+  }
+  
   .card {
     padding: 16px;
   }
   
-  .todo-actions {
+  /* Override filter section untuk mobile kecil */
+  .filter-section .filter-row {
     flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .filter-group, .search-group {
+    flex: 1;
+    max-width: 100%;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .form-title,
+  .section-title {
+    font-size: 1.1rem;
+  }
+  
+  .stat-item {
+    padding: 12px;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+  }
+  
+  .input-group input,
+  .filter-group select,
+  .search-container input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .search-container input {
+    padding-left: 40px;
+  }
+  
+  button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .todo-item {
+    padding: 10px;
+    border-radius: 8px;
+    align-items: center;
+  }
+  
+  .todo-checkbox {
+    width: 14px;
+    height: 14px;
+    border-width: 1px;
+    align-self: center;
+  }
+  
+  .todo-checkbox.checked::after {
+    font-size: 8px;
+  }
+  
+  .task-title {
+    font-size: 0.95rem;
+  }
+  
+  .task-meta {
+    font-size: 0.7rem;
+  }
+  
+  .priority {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+  
+  .todo-actions {
+    gap: 6px;
   }
   
   .action-btn {
     padding: 6px;
+    font-size: 0.85rem;
+  }
+  
+  .empty-state {
+    padding: 40px 16px;
+  }
+  
+  .empty-state i {
+    font-size: 3rem;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.1rem;
+  }
+  
+  .empty-state p {
+    font-size: 0.8rem;
+  }
+  
+  footer {
+    font-size: 0.8rem;
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .card {
+    padding: 12px;
+  }
+  
+  /* Filter section untuk layar sangat kecil */
+  .filter-section .filter-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .filter-group label,
+  .search-group label {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .stat-value {
+    font-size: 1.25rem;
+  }
+  
+  .todo-item {
+    padding: 8px;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .todo-checkbox {
+    align-self: center;
+  }
+  
+  .task-title {
+    font-size: 0.9rem;
+  }
+  
+  .input-group input,
+  .filter-group select,
+  .search-container input {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .search-container input {
+    padding-left: 36px;
+  }
+  
+  .search-container i {
+    left: 12px;
+  }
+  
+  button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .modal-content {
+    padding: 16px;
   }
 }
