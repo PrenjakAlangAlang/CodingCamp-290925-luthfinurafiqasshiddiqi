@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>To-Do List - CodingCamp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="background-animation"></div>
+  
+  <main class="container" id="main" aria-labelledby="title">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <h1 id="title">To-Do List</h1>
+      </div>
+      <p class="subtitle">Kelola tugas Anda dengan mudah dan efisien</p>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="stats" aria-label="Statistik tugas">
+      <div class="stat-item">
+        <div class="stat-value" id="total-tasks">0</div>
+        <div class="stat-label">Total Tugas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="pending-tasks">0</div>
+        <div class="stat-label">Belum Selesai</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="completed-tasks">0</div>
+        <div class="stat-label">Selesai</div>
+      </div>
+    </section>
+
+    <!-- Form input -->
+    <form id="todo-form" novalidate class="card">
+      <h2 class="form-title">Tambah Tugas Baru</h2>
+      <div class="form-row">
+        <div class="input-group">
+          <label for="todo-input">
+            <i class="fas fa-pencil-alt"></i>
+            Tugas
+          </label>
+          <input id="todo-input" name="task" type="text" placeholder="Mis. Baca bab 3" required aria-required="true" />
+          <span class="error" id="task-error" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="date-input">
+            <i class="fas fa-calendar-alt"></i>
+            Tanggal
+          </label>
+          <input id="date-input" name="date" type="date" required aria-required="true" />
+          <span class="error" id="date-error" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div class="form-row actions">
+        <button type="submit" id="add-btn" class="btn-primary">
+          <i class="fas fa-plus"></i>
+          Tambah Tugas
+        </button>
+        <button type="button" id="clear-all" class="btn-danger">
+          <i class="fas fa-trash"></i>
+          Hapus Semua
+        </button>
+      </div>
+    </form>
+
+    <!-- Filter & Search -->
+    <section class="filter-section card" aria-label="Filter tugas">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="filter-select">
+            <i class="fas fa-filter"></i>
+            Tampilkan:
+          </label>
+          <select id="filter-select" aria-controls="todo-list">
+            <option value="all">Semua Tugas</option>
+            <option value="pending">Belum Selesai</option>
+            <option value="completed">Selesai</option>
+            <option value="today">Hari Ini</option>
+          </select>
+        </div>
+        
+        <div class="search-group">
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input id="search-input" type="search" placeholder="Cari tugas..." aria-label="Cari tugas" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- To-do list -->
+    <section class="todo-section">
+      <h2 class="section-title">Daftar Tugas</h2>
+      <div class="todo-container card">
+        <ul id="todo-list" class="todo-list" role="list" aria-live="polite"></ul>
+        <div id="empty-state" class="empty-state">
+          <i class="fas fa-clipboard-list"></i>
+          <h3>Belum ada tugas</h3>
+          <p>Tambahkan tugas pertama Anda menggunakan form di atas</p>
+        </div>
+      </div>
+    </section>
+
+    
+   
+  </main>
+
+  
+  <div id="confirmation-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3 id="modal-title">Konfirmasi</h3>
+      <p id="modal-message">Apakah Anda yakin ingin menghapus tugas ini?</p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-secondary">Batal</button>
+        <button id="modal-confirm" class="btn-danger">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
